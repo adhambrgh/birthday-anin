@@ -598,6 +598,10 @@
             </button>
             <br />
             <button class="clue-tag" onclick="showClue()">Petunjuk Rahasia</button>
+            <br />
+            <button class="gift-open-btn" id="next-btn" onclick="window.location.href='halaman-ucapan.html'" style="display:none; background:linear-gradient(135deg,#66bb6a,#a5d6a7)">
+              Lanjut ke Kado 🎉
+            </button>
           </div>
         </div>
       </div>
@@ -673,9 +677,17 @@
           }
 
           pinReset();
+          
+          // Tampilkan tombol Lanjut
+          const nextBtn = document.getElementById("next-btn");
+          if (nextBtn) nextBtn.style.display = "flex";
+          
+          // Backup redirect
           setTimeout(() => {
-            window.location.replace("halaman-ucapan.html");
-          }, 1100);
+            if (nextBtn && nextBtn.style.display !== "none") {
+              window.location.href = "halaman-ucapan.html";
+            }
+          }, 2000);
         } else {
           msg.style.color = "#c62828";
           msg.innerText = "PIN belum pas. Tenang, coba lagi atau buka petunjuk di bawah ya!";
