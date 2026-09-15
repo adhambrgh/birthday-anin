@@ -678,16 +678,29 @@
 
           pinReset();
           
-          // Tampilkan tombol Lanjut
-          const nextBtn = document.getElementById("next-btn");
-          if (nextBtn) nextBtn.style.display = "flex";
+          // Play music before redirect (user gesture context)
+          const music = document.getElementById("music");
+          if (music) {
+            music.volume = 0.5;
+            music.play().then(() => {
+              const btn = document.getElementById("music-btn");
+              if (btn) btn.classList.add("playing");
+              localStorage.setItem("anin_music", "on");
+            }).catch(() => {});
+          }
           
-          // Backup redirect
+          // Navigasi ke ucapan via PJAX (audio tetap hidup)
           setTimeout(() => {
-            if (nextBtn && nextBtn.style.display !== "none") {
+            try {
+              if (typeof pjaxNavigate === "function") {
+                pjaxNavigate("halaman-ucapan.html");
+              } else {
+                window.location.href = "halaman-ucapan.html";
+              }
+            } catch (e) {
               window.location.href = "halaman-ucapan.html";
             }
-          }, 2000);
+          }, 800);
         } else {
           msg.style.color = "#c62828";
           msg.innerText = "PIN belum pas. Tenang, coba lagi atau buka petunjuk di bawah ya!";
