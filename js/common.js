@@ -32,19 +32,56 @@ function sparkleDi(x, y) {
   setTimeout(() => s.remove(), 1500);
 }
 
+/* ===== MUSIC — persist across pages via localStorage ===== */
 function toggleMusic() {
   const music = document.getElementById("music");
   const btn = document.getElementById("music-btn");
   if (!music || !btn) return;
   if (music.paused) {
     music.play()
-      .then(() => btn.classList.add("playing"))
+      .then(() => {
+        btn.classList.add("playing");
+        localStorage.setItem("anin_music", "on");
+      })
       .catch(() => {});
   } else {
     music.pause();
     btn.classList.remove("playing");
+    localStorage.setItem("anin_music", "off");
   }
 }
+
+function autoPlayMusic() {
+  const music = document.getElementById("music");
+  const btn = document.getElementById("music-btn");
+  if (!music) return;
+  music.volume = 0.5;
+  // Coba putar otomatis, kalau browser blokir fallback di first click
+  music.play()
+    .then(() => {
+      if (btn) btn.classList.add("playing");
+      localStorage.setItem("anin_music", "on");
+    })
+    .catch(() => {});
+}
+
+// Setelah DOM ready, cek status musik sebelumnya dari localStorage
+document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("anin_music");
+  if (saved !== "off") {
+    autoPlayMusic();
+  }
+  // Fallback: klik pertama di halaman → coba play
+  document.addEventListener("click", () => {
+    const music = document.getElementById("music");
+    const btn = document.getElementById("music-btn");
+    if (music && music.paused && localStorage.getItem("anin_music") !== "off") {
+      music.play()
+        .then(() => { if (btn) btn.classList.add("playing"); })
+        .catch(() => {});
+    }
+  }, { once: true });
+});
 
 function createBgDecor() {
   const container = document.getElementById("bgDecor");
