@@ -634,6 +634,18 @@
       }
 
       // ===================== MUSIK =====================
+      function autoPlayMusic() {
+        const music = document.getElementById("music");
+        const btn = document.getElementById("music-btn");
+        if (!music) return;
+        music.volume = 0.5;
+        music.play()
+          .then(() => {
+            if (btn) btn.classList.add("playing");
+          })
+          .catch(() => {});
+      }
+
       function toggleMusic() {
         const music = document.getElementById("music");
         const btn = document.getElementById("music-btn");
@@ -669,6 +681,17 @@
       }
 
       createBgDecor();
+
+      // Musik otomatis putar (dengan fallback klik pertama karena browser block autoplay)
+      autoPlayMusic();
+      document.addEventListener(
+        "click",
+        () => {
+          const music = document.getElementById("music");
+          if (music && music.paused) autoPlayMusic();
+        },
+        { once: true }
+      );
 
       // Confetti saat pertama kali buka halaman ucapan
       setTimeout(() => semprotConfetti(50), 300);
