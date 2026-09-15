@@ -111,12 +111,12 @@
     <script>
       createBgDecor();
       semprotConfetti(30);
-      const video = document.getElementById('selfie-video');
-      const canvas = document.getElementById('selfie-canvas');
-      const statusEl = document.getElementById('selfie-status');
-      const cameraBtn = document.getElementById('camera-btn');
-      const captureBtn = document.getElementById('capture-btn');
-      let stream = null;
+      var video = document.getElementById('selfie-video');
+      var canvas = document.getElementById('selfie-canvas');
+      var statusEl = document.getElementById('selfie-status');
+      var cameraBtn = document.getElementById('camera-btn');
+      var captureBtn = document.getElementById('capture-btn');
+      var stream = null;
 
       async function startCamera() {
         try {

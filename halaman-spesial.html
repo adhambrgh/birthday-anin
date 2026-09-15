@@ -228,7 +228,7 @@
       semprotConfetti(40);
       setTimeout(() => semprotConfetti(20), 400);
       pageInterval(() => semprotConfetti(12), 8000);
-      const saved = sessionStorage.getItem('birthday-selfie');
+      var saved = sessionStorage.getItem('birthday-selfie');
       if (saved) document.getElementById('foto-selfie-user').src = saved;
     </script>
   </body>

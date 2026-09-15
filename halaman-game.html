@@ -191,17 +191,17 @@
     <script src="js/common.js"></script>
     <script>
       // ===================== GAME BALON =====================
-      let gameTimer = null;
-      let balloonTimer = null;
-      let timeLeft = 20;
-      let score = 0;
-      let playing = false;
-      let combo = 0;
-      let comboTimer = null;
-      let multiplier = 1;
+      var gameTimer = null;
+      var balloonTimer = null;
+      var timeLeft = 20;
+      var score = 0;
+      var playing = false;
+      var combo = 0;
+      var comboTimer = null;
+      var multiplier = 1;
 
-      const BALLOON_COLORS = ["#ef5350", "#f48fb1", "#66bb6a", "#81c784", "#42a5f5", "#64b5f6", "#ffca28", "#ffcc80", "#ab47bc", "#ce93d8", "#ff7043"];
-      const BALLOON_SIZES = [44, 52, 62, 72];
+      var BALLOON_COLORS = ["#ef5350", "#f48fb1", "#66bb6a", "#81c784", "#42a5f5", "#64b5f6", "#ffca28", "#ffcc80", "#ab47bc", "#ce93d8", "#ff7043"];
+      var BALLOON_SIZES = [44, 52, 62, 72];
 
       function createClouds() {
         const container = document.getElementById("game-clouds");
