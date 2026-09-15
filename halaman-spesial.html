@@ -212,10 +212,10 @@
         </div>
 
         <div class="nav-row">
-          <button class="nav-btn" onclick="window.location.href='halaman-selfie.html'">
+          <button class="nav-btn" onclick="pjaxNavigate('halaman-selfie.html')">
             Kembali
           </button>
-          <button class="nav-btn" onclick="window.location.href='halaman-game.html'">
+          <button class="nav-btn" onclick="pjaxNavigate('halaman-game.html')">
             Main Game
           </button>
         </div>
@@ -227,7 +227,7 @@
       createBgDecor();
       semprotConfetti(40);
       setTimeout(() => semprotConfetti(20), 400);
-      setInterval(() => semprotConfetti(12), 8000);
+      pageInterval(() => semprotConfetti(12), 8000);
       const saved = sessionStorage.getItem('birthday-selfie');
       if (saved) document.getElementById('foto-selfie-user').src = saved;
     </script>

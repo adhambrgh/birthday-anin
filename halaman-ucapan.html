@@ -533,10 +533,10 @@
         </button>
 
         <div class="nav-row">
-          <button class="nav-btn" onclick="window.location.href='index.html'">
+          <button class="nav-btn" onclick="pjaxNavigate('index.html')">
             ← Kembali
           </button>
-          <button class="nav-btn" onclick="window.location.href='halaman-foto.html'">
+          <button class="nav-btn" onclick="pjaxNavigate('halaman-foto.html')">
             Lanjut →
           </button>
         </div>
@@ -633,34 +633,10 @@
         }, 400);
       }
 
-      // ===================== BACKGROUND =====================
-      function createBgDecor() {
-        const container = document.getElementById("bgDecor");
-        const items = ["✿", "❀", "✦", "✧", "❁", "✾"];
-        for (let i = 0; i < 30; i++) {
-          const span = document.createElement("span");
-          span.className = "floating-item";
-          span.innerText = items[Math.floor(Math.random() * items.length)];
-          span.style.left = Math.random() * 100 + "vw";
-          span.style.fontSize = Math.random() * (25 - 10) + 10 + "px";
-          span.style.color = Math.random() > 0.5 ? "#BBDEFB" : "white";
-          span.style.animationDuration = Math.random() * (15 - 5) + 5 + "s";
-          span.style.animationDelay = Math.random() * 5 + "s";
-          container.appendChild(span);
-        }
-      }
-
       createBgDecor();
 
       // Confetti saat pertama kali buka halaman ucapan
       setTimeout(() => semprotConfetti(50), 300);
-
-      // Klik foto kenangan → muncul bintang kecil
-      document.addEventListener("click", (e) => {
-        if (e.target.tagName === "IMG") {
-          sparkleDi(e.clientX - 10, e.clientY - 10);
-        }
-      });
     </script>
   </body>
 </html>

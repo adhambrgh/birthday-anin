@@ -674,7 +674,7 @@
 
           pinReset();
           setTimeout(() => {
-            window.location.href = "halaman-ucapan.html";
+            pjaxNavigate("halaman-ucapan.html");
           }, 1100);
         } else {
           msg.style.color = "#c62828";
@@ -741,10 +741,10 @@
 
       function startContinuousFireworks() {
         fireOneRocket();
-        setInterval(() => {
+        pageInterval(() => {
           fireOneRocket();
           if (Math.random() > 0.4) {
-            setTimeout(fireOneRocket, 200 + Math.random() * 300);
+            pageTimeout(fireOneRocket, 200 + Math.random() * 300);
           }
         }, 1800 + Math.random() * 1200);
       }
@@ -769,7 +769,7 @@
 
       createBgDecor();
       startContinuousFireworks();
-      setInterval(spawnGlitter, 3000);
+      pageInterval(spawnGlitter, 3000);
       spawnGlitter();
     </script>
   </body>

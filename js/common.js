@@ -2,6 +2,134 @@
 
 const CONFETTI_COLORS = ["#ef5350", "#42a5f5", "#66bb6a", "#ffca28", "#ab47bc", "#ff7043", "#ec407a"];
 
+/* ===== PJAX ROUTER — navigasi tanpa reload, musik tetap jalan ===== */
+const pageState = {
+  timers: [],
+  scripts: [],
+  listeners: [],
+  navClassName: "pjax-loading",
+};
+
+function pageInterval(fn, ms) {
+  const id = setInterval(fn, ms);
+  pageState.timers.push(id);
+  return id;
+}
+function pageTimeout(fn, ms) {
+  const id = setTimeout(fn, ms);
+  pageState.timers.push(id);
+  return id;
+}
+function clearPageTimers() {
+  pageState.timers.forEach((id) => {
+    clearInterval(id);
+    clearTimeout(id);
+  });
+  pageState.timers = [];
+}
+function pageListener(el, type, fn, opts) {
+  el.addEventListener(type, fn, opts);
+  pageState.listeners.push({ el, type, fn, opts });
+}
+function cleanupPreviousPage() {
+  clearPageTimers();
+  pageState.listeners.forEach(({ el, type, fn, opts }) =>
+    el.removeEventListener(type, fn, opts)
+  );
+  pageState.listeners = [];
+}
+
+function isInternalLink(href) {
+  if (!href || href.startsWith("#")) return false;
+  const url = new URL(href, window.location.origin);
+  return url.origin === window.location.origin && url.pathname.endsWith(".html");
+}
+
+function pjaxNavigate(url) {
+  const target = new URL(url, window.location.origin).pathname.split("/").pop();
+  document.body.classList.add(pageState.navClassName);
+  fetch(target)
+    .then((r) => r.text())
+    .then((html) => {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+
+      // Buang elemen persistent dari halaman target (biar ga duplikat)
+      doc.querySelectorAll("#music, #music-btn, #bgDecor").forEach((el) => el.remove());
+
+      cleanupPreviousPage();
+
+      // Pertahankan elemen musik & tombol, swap sisanya
+      const music = document.getElementById("music");
+      const musicBtn = document.getElementById("music-btn");
+      const bg = document.getElementById("bgDecor");
+
+      // Kumpulkan script target (inline) untuk dijalankan setelah swap
+      const inlineScripts = [];
+      doc.querySelectorAll("script").forEach((s) => {
+        if (s.src) return;
+        if (s.textContent.includes("js/common.js")) return;
+        if (s.textContent.includes("common.js")) return;
+        inlineScripts.push(s.textContent);
+      });
+
+      // Ganti body content
+      const newBody = doc.body.innerHTML;
+      document.body.innerHTML = newBody;
+
+      // Masukkan ulang elemen musik & bg decor (tetap hidup)
+      if (music) document.body.appendChild(music);
+      if (musicBtn) document.body.appendChild(musicBtn);
+      if (bg) document.body.appendChild(bg);
+
+      document.title = doc.title;
+
+      // Salin style page target
+      const oldStylish = document.querySelectorAll("style[data-pjax-style]");
+      oldStylish.forEach((s) => s.remove());
+      doc.querySelectorAll("style").forEach((s) => {
+        const st = document.createElement("style");
+        st.setAttribute("data-pjax-style", "");
+        st.textContent = s.textContent;
+        document.head.appendChild(st);
+      });
+
+      // Jalankan script halaman baru
+      inlineScripts.forEach((code) => {
+        const sc = document.createElement("script");
+        sc.textContent = code;
+        document.body.appendChild(sc);
+      });
+
+      window.scrollTo(0, 0);
+      history.pushState({ pjax: true }, "", target);
+      document.body.classList.remove(pageState.navClassName);
+    })
+    .catch(() => {
+      // Kalau fetch gagal, fallback navigasi biasa
+      window.location.href = target;
+    });
+}
+
+// Intercept klik internal links
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a[href]");
+  if (!a) return;
+  const href = a.getAttribute("href");
+  if (isInternalLink(href) && !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) {
+    e.preventDefault();
+    pjaxNavigate(href);
+  }
+});
+
+// Tombol back browser → navigasi balik via PJAX
+window.addEventListener("popstate", () => {
+  const path = window.location.pathname.split("/").pop() || "index.html";
+  pjaxNavigate(path);
+});
+
+// Tersedia global untuk tombol onclick
+window.pjaxNavigate = pjaxNavigate;
+
 function semprotConfetti(jumlah) {
   for (let i = 0; i < jumlah; i++) {
     setTimeout(() => {
@@ -110,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function createBgDecor() {
   const container = document.getElementById("bgDecor");
   if (!container) return;
+  container.innerHTML = "";
   const items = ["✿", "❀", "✦", "✧", "❁", "✾"];
   for (let i = 0; i < 30; i++) {
     const span = document.createElement("span");
