@@ -6,3 +6,6 @@ foto/
 .DS_Store
 Thumbs.db
 *.log
+.agents/
+.claude/
+package*.json
