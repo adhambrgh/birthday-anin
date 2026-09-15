@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-sqlite",
+        "--db-path", "./data/your_database.db"
+      ]
+    }
+  }
+}

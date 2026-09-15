@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "db-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\Adham Baarigh\\.agents\\skills\\db-mcp\\index.js"
+      ]
+    }
+  }
+}

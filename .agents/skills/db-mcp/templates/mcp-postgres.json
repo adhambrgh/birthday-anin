@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-postgres",
+        "postgresql://ai_agent:YOUR_PASSWORD@localhost:5432/your_database?sslmode=require"
+      ]
+    },
+    "vector-search": {
+      "command": "node",
+      "args": ["path/to/mcp-db-server.js"],
+      "env": {
+        "AI_DATABASE_URL": "postgresql://ai_agent:YOUR_PASSWORD@localhost:5432/your_database",
+        "OPENAI_API_KEY": "sk-your-key-here"
+      }
+    }
+  }
+}

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Anin!! - Foto Kenangan</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .page-foto { max-width: 900px; }
+      .gift-box { width: 100%; perspective: 800px; }
+      .gift-lid {
+        position: relative;
+        height: 64px;
+        margin-bottom: -16px;
+        background: linear-gradient(135deg, #fce4ec, #f8bbd0 50%, #f48fb1);
+        border-radius: 24px 24px 12px 12px;
+        box-shadow: 0 16px 32px rgba(255,105,180,.35);
+      }
+      .gift-lid::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(255,255,255,.35), transparent 50%);
+      }
+      .ribbon { position: absolute; z-index: 1; background: #e91e63; box-shadow: 0 4px 12px rgba(233,30,99,.3); }
+      .ribbon-vertical { top: 0; left: 50%; width: 28px; height: 100%; transform: translateX(-50%); }
+      .ribbon-horizontal { top: 50%; left: 0; width: 100%; height: 20px; transform: translateY(-50%); }
+      .bow {
+        position: absolute;
+        z-index: 2;
+        top: 50%; left: 50%;
+        width: 64px; height: 36px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: #ff69b4;
+        border: 6px solid #ff1493;
+      }
+      .bow::before, .bow::after {
+        content: "";
+        position: absolute;
+        top: 50%; width: 42px; height: 30px;
+        border: 6px solid #ff1493;
+        border-radius: 50%;
+        background: #ff69b4;
+        transform: translateY(-50%);
+      }
+      .bow::before { right: 40px; }
+      .bow::after { left: 40px; }
+      .bow-center { position: absolute; z-index: 1; inset: 8px 20px; border-radius: 50%; background: #e91e63; }
+      .gift-body { padding: 24px 20px; background: #fff8e1; border-radius: 0 0 24px 24px; }
+      .page-foto .card { --page-enter: fade-zoom; border: 0; border-radius: 16px; }
+      .sparkle-ring { position: absolute; z-index: 2; color: #f9a825; font-size: 28px; animation: sparkle-float 1.8s ease-in-out infinite; }
+      .sparkle-ring:nth-of-type(1) { top: 18px; left: 20px; }
+      .sparkle-ring:nth-of-type(2) { top: 18px; right: 20px; animation-delay: .45s; }
+      .sparkle-ring:nth-of-type(3) { bottom: 18px; left: 20px; animation-delay: .9s; }
+      .sparkle-ring:nth-of-type(4) { bottom: 18px; right: 20px; animation-delay: 1.35s; }
+      .birthday-badge {
+        display: inline-block;
+        margin: 2px 0 10px;
+        padding: 7px 16px;
+        color: #fff;
+        background: linear-gradient(135deg, #ec407a, #ff9800);
+        border-radius: 999px;
+        font-size: .82rem;
+        font-weight: 700;
+        letter-spacing: .16em;
+        box-shadow: 0 6px 14px rgba(236,64,122,.3);
+        animation: badge-bounce 1.8s ease-in-out infinite;
+      }
+      @keyframes badge-bounce {
+        50% { transform: translateY(-5px) rotate(-2deg); }
+      }
+      .lights-wrap {
+        display: flex;
+        justify-content: space-around;
+        margin: -38px auto 20px;
+        width: min(92%, 700px);
+      }
+      .light-bulb {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        animation: bulb-glow 1.2s ease-in-out infinite alternate;
+      }
+      .light-bulb:nth-child(3n + 1) { background: #ef5350; box-shadow: 0 0 14px 4px #ef5350; }
+      .light-bulb:nth-child(3n + 2) { background: #ffca28; box-shadow: 0 0 14px 4px #ffca28; animation-delay: .4s; }
+      .light-bulb:nth-child(3n) { background: #42a5f5; box-shadow: 0 0 14px 4px #42a5f5; animation-delay: .8s; }
+      @keyframes bulb-glow { to { transform: scale(1.3); opacity: .65; } }
+      .photo-frame {
+        border: 5px solid #fff;
+        outline: 3px solid #f8bbd0;
+        box-shadow: 0 10px 22px rgba(233,30,99,.2);
+        animation: photo-float 4s ease-in-out infinite alternate;
+      }
+      .photo-frame:nth-child(3n) { outline-color: #ffd54f; }
+      .photo-frame:nth-child(even) { outline-color: #90caf9; }
+      .photo-frame:nth-child(1) { animation-delay: 0s; }
+      .photo-frame:nth-child(2) { animation-delay: 0.6s; }
+      .photo-frame:nth-child(3) { animation-delay: 1.2s; }
+      .photo-frame:nth-child(4) { animation-delay: 1.8s; }
+      .photo-frame:nth-child(5) { animation-delay: 2.4s; }
+      .photo-frame:nth-child(6) { animation-delay: 3.0s; }
+
+      @keyframes photo-float {
+        0% { transform: translateY(0) rotate(-3deg); }
+        50% { transform: translateY(-8px) rotate(-1deg); }
+        100% { transform: translateY(0) rotate(-3deg); }
+      }
+      .photo-frame:nth-child(even) {
+        animation-name: photo-float-even;
+      }
+      @keyframes photo-float-even {
+        0% { transform: translateY(0) rotate(3deg); }
+        50% { transform: translateY(-8px) rotate(1deg); }
+        100% { transform: translateY(0) rotate(3deg); }
+      }
+      .photo-frame:hover {
+        animation-play-state: paused;
+        transform: scale(1.05) rotate(0deg) !important;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" id="bgDecor"></div>
+
+    <svg style="display: none">
+      <symbol id="bunga-rame" viewBox="0 0 100 100">
+        <path d="M20,50 C10,40 10,20 30,15 C40,25 35,40 20,50 Z" fill="#A5D6A7" />
+        <path d="M80,50 C90,60 90,80 70,85 C60,75 65,60 80,50 Z" fill="#A5D6A7" />
+        <circle cx="50" cy="50" r="12" fill="#FDD835" />
+        <ellipse cx="50" cy="25" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="50" cy="75" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="25" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="75" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="32" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="32" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+      </symbol>
+    </svg>
+
+    <svg class="flower-corner flower-top-left">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+    <svg class="flower-corner flower-bottom-right">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+
+    <audio id="music" loop>
+      <source src="audio/audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button class="music-fab" id="music-btn" onclick="toggleMusic()" title="Putar lagu">
+      <span class="fab-icon">♫</span>
+    </button>
+
+    <!-- ============ HALAMAN 3 : FOTO KENANGAN ============ -->
+    <div class="page page-foto active" id="page-foto">
+      <div class="gift-box">
+        <div class="gift-lid">
+          <div class="ribbon ribbon-vertical"></div>
+          <div class="ribbon ribbon-horizontal"></div>
+          <div class="bow"><div class="bow-center"></div></div>
+        </div>
+        <div class="gift-body">
+          <div class="card">
+            <span class="sparkle-ring" aria-hidden="true">✦</span>
+            <span class="sparkle-ring" aria-hidden="true">✧</span>
+            <span class="sparkle-ring" aria-hidden="true">✦</span>
+            <span class="sparkle-ring" aria-hidden="true">✧</span>
+            <div class="lights-wrap" aria-hidden="true">
+              <i class="light-bulb"></i><i class="light-bulb"></i><i class="light-bulb"></i><i class="light-bulb"></i><i class="light-bulb"></i><i class="light-bulb"></i><i class="light-bulb"></i>
+            </div>
+        <div class="birthday-badge">HAPPY 17th</div>
+        <h3>Momen-momen Anin</h3>
+        <p>Coba lihat, manusia yang lagi berbahagia ini!</p>
+
+        <div class="photo-grid">
+          <div class="photo-frame">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80"
+              alt="Kenangan yang bikin meleleh"
+              onerror="this.onerror=null;this.src='foto/image.png'"
+            />
+            <div class="photo-caption">Kenangan yang bikin meleleh</div>
+          </div>
+
+          <div class="photo-frame">
+            <img
+              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80"
+              alt="Tambah umur, makin sayang"
+              onerror="this.onerror=null;this.src='foto/image2.jpg'"
+            />
+            <div class="photo-caption">Tambah umur, makin sayang</div>
+          </div>
+
+          <div class="photo-frame">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80"
+              alt="Momen yang gak tergantikan"
+              onerror="this.onerror=null;this.src='foto/image3.jpg'"
+            />
+            <div class="photo-caption">Momen yang gak tergantikan</div>
+          </div>
+
+          <div class="photo-frame">
+            <img
+              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80"
+              alt="Jalan bareng sampai tua itu impian"
+              onerror="this.onerror=null;this.src='foto/image4.jpg'"
+            />
+            <div class="photo-caption">Jalan bareng sampai tua itu impian</div>
+          </div>
+
+          <div class="photo-frame">
+            <img
+              src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80"
+              alt="Selamat ulang tahun, tetap cinta"
+              onerror="this.onerror=null;this.src='foto/image5.jpg'"
+            />
+            <div class="photo-caption">Selamat ulang tahun, tetap cinta</div>
+          </div>
+
+          <div class="photo-frame">
+            <img
+              src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80"
+              alt="Kerennya kamu, layak dirayain"
+              onerror="this.onerror=null;this.src='foto/image.png'"
+            />
+            <div class="photo-caption">Kerennya kamu, layak dirayain</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 20px">
+          Intinya... kamu keren, kamu hebat, dan hari ini khusus buat kamu!
+        </p>
+
+        <div class="nav-row">
+          <button class="nav-btn" onclick="window.location.href='halaman-ucapan.html'">
+            Kembali
+          </button>
+          <button class="nav-btn" onclick="window.location.href='halaman-doa.html'">
+            Lanjut
+          </button>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+      createBgDecor();
+      semprotConfetti(36);
+      setTimeout(() => semprotConfetti(24), 300);
+    </script>
+  </body>
+</html>

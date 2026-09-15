@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Anin!! - Harapan & Doa</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .page-doa { max-width: 900px; }
+      .page-doa .card {
+        --page-enter: fade-up;
+        padding: 42px 30px 30px;
+        background: #fffaf0;
+        border: 3px solid #f5cf82;
+        box-shadow: 0 18px 40px rgba(173,119,38,.2);
+      }
+      .page-doa .card::before {
+        content: "17";
+        top: -27px;
+        color: #fff;
+        background: linear-gradient(135deg, #ec407a, #ff7043);
+        font-family: "Pattaya", cursive;
+        font-size: 1.8rem;
+      }
+      .wish-stamp {
+        display: inline-block;
+        margin: 0 0 10px;
+        padding: 7px 17px;
+        color: #fff;
+        background: linear-gradient(135deg, #ec407a, #ff7043);
+        border-radius: 999px;
+        font-size: .8rem;
+        font-weight: 700;
+        letter-spacing: .15em;
+        box-shadow: 0 5px 12px rgba(236,64,122,.25);
+        animation: stamp-bounce 2s ease-in-out infinite;
+      }
+      .wish-intro { margin: 0 auto 20px; max-width: 800px; }
+      .wish-note {
+        position: relative;
+        max-width: 800px;
+        margin: 16px auto;
+        padding: 18px 20px 18px 58px;
+        color: #424242;
+        text-align: left;
+        border-radius: 14px;
+        border: 2px dashed rgba(233,30,99,.25);
+        background: #fff;
+        box-shadow: 0 6px 16px rgba(233,30,99,.1);
+        animation: note-enter .55s both;
+      }
+      .wish-note::before {
+        content: attr(data-note);
+        position: absolute;
+        top: 18px; left: 16px;
+        display: grid;
+        width: 28px; height: 28px;
+        place-items: center;
+        color: #fff;
+        background: #ec407a;
+        border-radius: 50%;
+        font-weight: 700;
+      }
+      .wish-note:nth-of-type(2) { background: #fff8e1; border-color: rgba(249,168,37,.35); animation-delay: .12s; }
+      .wish-note:nth-of-type(2)::before { background: #f9a825; }
+      .wish-note:nth-of-type(3) { background: #f3f9ff; border-color: rgba(66,165,245,.3); animation-delay: .24s; }
+      .wish-note:nth-of-type(3)::before { background: #42a5f5; }
+      .wish-note:nth-of-type(4) { background: #f4fbf2; border-color: rgba(102,187,106,.3); animation-delay: .36s; }
+      .wish-note:nth-of-type(4)::before { background: #66bb6a; }
+      .nav-row { margin-top: 28px; }
+      @keyframes stamp-bounce { 50% { transform: translateY(-4px) rotate(-2deg); } }
+      @keyframes note-enter { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" id="bgDecor"></div>
+
+    <svg style="display: none">
+      <symbol id="bunga-rame" viewBox="0 0 100 100">
+        <path d="M20,50 C10,40 10,20 30,15 C40,25 35,40 20,50 Z" fill="#A5D6A7" />
+        <path d="M80,50 C90,60 90,80 70,85 C60,75 65,60 80,50 Z" fill="#A5D6A7" />
+        <circle cx="50" cy="50" r="12" fill="#FDD835" />
+        <ellipse cx="50" cy="25" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="50" cy="75" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="25" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="75" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="32" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="32" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+      </symbol>
+    </svg>
+
+    <svg class="flower-corner flower-top-left">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+    <svg class="flower-corner flower-bottom-right">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+
+    <audio id="music" loop>
+      <source src="audio/audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button class="music-fab" id="music-btn" onclick="toggleMusic()" title="Putar lagu">
+      <span class="fab-icon">♫</span>
+    </button>
+
+    <!-- ============ HALAMAN 4 : HARAPAN & DOA ============ -->
+    <div class="page page-doa active" id="page-doa">
+      <div class="card">
+        <div class="wish-stamp">17 WISHES FOR ANIN</div>
+        <h3>Harapan & Doa buat Anin</h3>
+        <p class="wish-intro">Di umur yang baru ini, aku cuma mau kasih catatan khusus:</p>
+        
+        <div class="wish-note" data-note="1">
+          Jangan lupa bahagia, jangan lupa makan, jangan begadang mulu, dan
+          jangan lupa maen bareng terus. Kalau cape istirahat, kalau laper
+          makan, kalau sedih... cerita aja. Ingat, kamu tuh hebat, udah
+          sejauh ini, masih kuat sampai sekarang. <strong>Proud of you!</strong>
+        </div>
+        
+        <div class="wish-note" data-note="2">
+          Semoga di usia yang baru ini semua doa kamu dipermudah, rezekinya
+          lancar, dan yang paling penting... kamu selalu bahagia. Kalau butuh
+          apa-apa, aku ada kok.
+        </div>
+        
+        <div class="wish-note" data-note="3">
+          Satu lagi, di hari ulang tahun ini semoga semua mimpi & cita-citamu
+          makin deket, satu per satu. Dari yang kecil sampai yang paling gede —
+          pelan-pelan aja, aku yang bakal jadi saksi perjalanannya. Kamu layak
+          dapet yang terbaik, dan aku yakin semuanya bakal segera dateng di
+          waktunya.
+        </div>
+        
+        <div class="wish-note" data-note="4">
+          Terakhir, sekalian bonus dari aku: semoga tahun ini kamu lebih
+          banyak ketawanya, lebih jarang galau, lebih kuat sama ujian, dan lebih
+          sayang sama dirimu sendiri. Karena aku mau lihat kamu menang di
+          versi terbaik kamu. <strong>Deal?</strong>
+        </div>
+
+        <div class="nav-row">
+          <button class="nav-btn" onclick="window.location.href='halaman-foto.html'">
+            Kembali
+          </button>
+          <button class="nav-btn" onclick="window.location.href='halaman-selfie.html'">
+            Lanjut
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+      createBgDecor();
+      semprotConfetti(30);
+      setTimeout(() => semprotConfetti(18), 400);
+    </script>
+  </body>
+</html>

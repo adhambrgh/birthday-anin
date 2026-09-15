@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Anin!! - Galeri Spesial</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body { background: radial-gradient(circle at 15% 15%, #ffd6e7, transparent 28%), radial-gradient(circle at 85% 80%, #d8dcff, transparent 30%), #f8effa; }
+      .page-spesial { max-width: 920px; }
+      .page-spesial .card {
+        --page-enter: pop-in;
+        padding: 42px 26px 30px;
+        background: linear-gradient(145deg, #fff9fd, #f5f0ff);
+        border: 4px solid #fff;
+        box-shadow: 0 20px 45px rgba(126,87,194,.22);
+      }
+      .page-spesial .card::before { content: "17"; top: -27px; color: #fff; background: linear-gradient(135deg, #ec407a, #7e57c2); font-family: "Pattaya", cursive; font-size: 1.8rem; }
+      .gallery-badge { display: inline-block; margin: 0 0 10px; padding: 7px 16px; color: #fff; background: linear-gradient(135deg, #ec407a, #ff7043); border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .15em; box-shadow: 0 5px 12px rgba(236,64,122,.25); animation: badge-float 1.8s ease-in-out infinite; }
+      .birthday-lights { display: flex; justify-content: space-around; width: min(88%, 700px); margin: 0 auto 18px; }
+      .birthday-lights i { width: 10px; height: 10px; border-radius: 50%; background: #ffca28; box-shadow: 0 0 12px 4px #ffca28; animation: light-pulse 1s ease-in-out infinite alternate; }
+      .birthday-lights i:nth-child(3n + 2) { background: #ec407a; box-shadow: 0 0 12px 4px #ec407a; animation-delay: .3s; }
+      .birthday-lights i:nth-child(3n) { background: #42a5f5; box-shadow: 0 0 12px 4px #42a5f5; animation-delay: .6s; }
+      .selfie-hero { max-width: 480px; margin: 22px auto 30px; padding: 12px; border-radius: 24px; background: linear-gradient(135deg, #ffd54f, #ec407a, #7e57c2); box-shadow: 0 14px 30px rgba(236,64,122,.25); }
+      .selfie-hero .photo-frame { margin: 0; transform: rotate(-2deg); }
+      .selfie-hero .photo-caption { color: #7e57c2; font-weight: 700; }
+      .selfie-praise { margin: 14px 8px 2px; color: #fff; font-weight: 700; line-height: 1.55; }
+      .spesial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 24px; }
+      .spesial-grid .photo-frame { margin: 0; border: 6px solid #fff; outline: 3px solid #f8bbd0; box-shadow: 0 9px 20px rgba(236,64,122,.18); animation: photo-arrive .55s both; }
+      .spesial-grid .photo-frame:nth-child(3n) { outline-color: #ffd54f; }
+      .spesial-grid .photo-frame:nth-child(even) { outline-color: #90caf9; }
+      .spesial-grid .photo-frame:nth-child(2) { animation-delay: .1s; }
+      .spesial-grid .photo-frame:nth-child(3) { animation-delay: .2s; }
+      .spesial-grid .photo-frame:nth-child(4) { animation-delay: .3s; }
+      .spesial-grid .photo-frame:nth-child(5) { animation-delay: .4s; }
+      .spesial-grid .photo-frame:nth-child(6) { animation-delay: .5s; }
+      .spesial-grid .photo-frame:nth-child(7) { animation-delay: .6s; }
+      .spesial-grid .photo-frame:nth-child(8) { animation-delay: .7s; }
+      .spesial-grid .photo-frame:nth-child(n+9) { animation-delay: calc(.8s + var(--i, 0) * .05s); }
+      .spesial-grid .photo-frame:nth-child(9) { --i: 0; }
+      .spesial-grid .photo-frame:nth-child(10) { --i: 1; }
+      .spesial-grid .photo-frame:nth-child(11) { --i: 2; }
+      .spesial-grid .photo-frame:nth-child(12) { --i: 3; }
+      .spesial-grid .photo-frame:nth-child(13) { --i: 4; }
+      .spesial-grid .photo-frame:nth-child(14) { --i: 5; }
+      .spesial-grid .photo-frame:nth-child(15) { --i: 6; }
+      .spesial-grid .photo-frame:nth-child(16) { --i: 7; }
+      .spesial-grid .photo-frame:nth-child(17) { --i: 8; }
+      .spesial-grid .photo-frame:nth-child(18) { --i: 9; }
+      .spesial-grid .photo-frame:nth-child(19) { --i: 10; }
+      .spesial-grid .photo-frame:nth-child(20) { --i: 11; }
+      .spesial-grid .photo-frame:hover { transform: scale(1.08) rotate(0deg) translateY(-6px); box-shadow: 0 16px 32px rgba(236,64,122,.35); z-index: 12; }
+      .spesial-grid .photo-frame::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-3deg);
+        width: 50px;
+        height: 18px;
+        background: rgba(255,235,59,.75);
+        border-radius: 2px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.12);
+        z-index: 3;
+      }
+      .spesial-grid .photo-frame:nth-child(even)::before { transform: translateX(-50%) rotate(4deg); background: rgba(233,30,153,.6); }
+      .spesial-grid .photo-frame:nth-child(3n)::before { background: rgba(33,150,243,.6); }
+      .spesial-grid .photo-frame .photo-caption { font-family: "Pattaya", cursive; font-size: 1.05em; transform: rotate(-1deg); }
+      .spesial-grid .photo-frame:nth-child(even) .photo-caption { transform: rotate(1deg); }
+      .spesial-grid .photo-frame:nth-child(3n) .photo-caption { transform: rotate(-2deg); }
+      .nav-row { margin-top: 30px; }
+      @keyframes badge-float { 50% { transform: translateY(-5px) rotate(-2deg); } }
+      @keyframes light-pulse { to { transform: scale(1.35); opacity: .65; } }
+      @keyframes photo-arrive { from { transform: translateY(18px) rotate(-2deg); opacity: 0; } to { transform: translateY(0) rotate(0); opacity: 1; } }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" id="bgDecor"></div>
+
+    <svg style="display: none">
+      <symbol id="bunga-rame" viewBox="0 0 100 100">
+        <path d="M20,50 C10,40 10,20 30,15 C40,25 35,40 20,50 Z" fill="#A5D6A7" />
+        <path d="M80,50 C90,60 90,80 70,85 C60,75 65,60 80,50 Z" fill="#A5D6A7" />
+        <circle cx="50" cy="50" r="12" fill="#FDD835" />
+        <ellipse cx="50" cy="25" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="50" cy="75" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="25" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="75" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="32" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="32" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+      </symbol>
+    </svg>
+
+    <svg class="flower-corner flower-top-left">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+    <svg class="flower-corner flower-bottom-right">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+
+    <audio id="music" loop>
+      <source src="audio/audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button class="music-fab" id="music-btn" onclick="toggleMusic()" title="Putar lagu">
+      <span class="fab-icon">♫</span>
+    </button>
+
+    <!-- ============ HALAMAN 6 : FOTO SPESIAL ============ -->
+    <div class="page page-spesial active" id="page-spesial">
+      <div class="card">
+        <div class="birthday-lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="gallery-badge">17 MOMENTS FOR ANIN</div>
+        <h3>Galeri Spesial</h3>
+        <p>Kumpulan foto yang paling nempel di hati</p>
+
+        <div class="selfie-hero">
+          <div class="photo-frame">
+            <img
+              id="foto-selfie-user"
+              src="foto/image5.jpg"
+              alt="Selfie spesial hari ini"
+            />
+            <div class="photo-caption">Selfie spesial hari ini</div>
+          </div>
+          <p class="selfie-praise">Senyummu hari ini bukti kalau dunia jadi lebih cerah karena ada kamu. Tetap jadi Anin yang keren, ya.</p>
+        </div>
+
+        <div class="spesial-grid">
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Senyum yang gak pernah bosen dilihat" />
+            <div class="photo-caption">Senyum yang gak pernah bosen dilihat</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="Dua orang, satu cerita" />
+            <div class="photo-caption">Dua orang, satu cerita</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80" alt="Kebahagiaan yang sederhana" />
+            <div class="photo-caption">Kebahagiaan yang sederhana</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80" alt="Pelan-pelan, tapi beriringan" />
+            <div class="photo-caption">Pelan-pelan, tapi beriringan</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt="Nggak perlu banyak kata" />
+            <div class="photo-caption">Nggak perlu banyak kata</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt="Cukup sama kamu, udah jadi cerita" />
+            <div class="photo-caption">Cukup sama kamu, udah jadi cerita</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Satu momen, seribu kenangan" />
+            <div class="photo-caption">Satu momen, seribu kenangan</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=600&q=80" alt="Enggak sengaja ketemu, gak pernah mau bosen" />
+            <div class="photo-caption">Enggak sengaja ketemu, gak pernah mau bosen</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?w=600&q=80" alt="Kamu alasan aku bahagia" />
+            <div class="photo-caption">Kamu alasan aku bahagia</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&q=80" alt="Hadirmu hadiah terindah" />
+            <div class="photo-caption">Hadirmu hadiah terindah</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=600&q=80" alt="Tiap hari jadi istimewa" />
+            <div class="photo-caption">Tiap hari jadi istimewa</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=600&q=80" alt="Cerita kita masih panjang" />
+            <div class="photo-caption">Cerita kita masih panjang</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1504703395950-b89145a5425b?w=600&q=80" alt="Bersama mu, cukup" />
+            <div class="photo-caption">Bersama mu, cukup</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=600&q=80" alt="Kenangan yang tak tergantikan" />
+            <div class="photo-caption">Kenangan yang tak tergantikan</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1496440737103-cd596325d314?w=600&q=80" alt="Kamu worth it" />
+            <div class="photo-caption">Kamu worth it</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Momen yang tersimpan" />
+            <div class="photo-caption">Momen yang tersimpan</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=600&q=80" alt="Ketemu kamu, terbaik" />
+            <div class="photo-caption">Ketemu kamu, terbaik</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1506634572416-48cdfe530110?w=600&q=80" alt="Senyummu penenang hati" />
+            <div class="photo-caption">Senyummu penenang hati</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=600&q=80" alt="Tiap detik berharga" />
+            <div class="photo-caption">Tiap detik berharga</div>
+          </div>
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Kamu memang spesial" />
+            <div class="photo-caption">Kamu memang spesial</div>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button class="nav-btn" onclick="window.location.href='halaman-selfie.html'">
+            Kembali
+          </button>
+          <button class="nav-btn" onclick="window.location.href='halaman-game.html'">
+            Main Game
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+      createBgDecor();
+      semprotConfetti(40);
+      setTimeout(() => semprotConfetti(20), 400);
+      setInterval(() => semprotConfetti(12), 8000);
+      const saved = sessionStorage.getItem('birthday-selfie');
+      if (saved) document.getElementById('foto-selfie-user').src = saved;
+    </script>
+  </body>
+</html>

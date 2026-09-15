@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Anin!!</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ===== PETASAN CONTINUOUS ===== */
+      .rocket {
+        position: fixed;
+        bottom: 0;
+        z-index: 20;
+        width: 6px;
+        height: 18px;
+        background: linear-gradient(to top, #ffeb3b, #ff5722);
+        border-radius: 50% 50% 0 0;
+        box-shadow: 0 0 10px #ff5722;
+        pointer-events: none;
+        animation: launch 0.8s ease-out forwards;
+      }
+      @keyframes launch {
+        0% { transform: translateY(0) scaleY(1); opacity: 1; }
+        100% { transform: translateY(var(--target-y)) scaleY(0.5); opacity: 0; }
+      }
+      .firework-piece {
+        position: fixed;
+        z-index: 19;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: firework 1.35s cubic-bezier(0.15, 0.7, 0.35, 1) forwards;
+      }
+      @keyframes firework {
+        0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+        75% { opacity: 1; }
+        100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))); opacity: 0; }
+      }
+
+      /* ===== GLITTER RAIN ===== */
+      .glitter {
+        position: fixed;
+        pointer-events: none;
+        z-index: 0;
+        width: 4px;
+        height: 4px;
+        background: #fff;
+        border-radius: 50%;
+        animation: glitter-fall linear infinite;
+        box-shadow: 0 0 6px 2px currentColor;
+      }
+      @keyframes glitter-fall {
+        0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+      }
+
+      /* ===== BALLOONS ===== */
+      .balloon-float {
+        position: fixed;
+        bottom: -80px;
+        z-index: 1;
+        width: 50px;
+        height: 65px;
+        border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+        animation: balloon-rise linear infinite;
+        pointer-events: none;
+      }
+      .balloon-float::after {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 20px;
+        background: rgba(0,0,0,0.2);
+      }
+      @keyframes balloon-rise {
+        0% { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(-110vh) rotate(10deg); }
+      }
+
+      /* ===== STARS SPARKLE ===== */
+      .star-sparkle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 0;
+        font-size: 24px;
+        animation: star-twinkle 2s ease-in-out infinite;
+        color: #fff9c4;
+        text-shadow: 0 0 10px #fff9c4;
+      }
+      @keyframes star-twinkle {
+        0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+        50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+      }
+
+      .landing-card { 
+        text-align: center; 
+        padding: 40px 30px; 
+        position: relative;
+      }
+      .landing-card::before {
+        content: "🎂";
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 48px;
+        animation: cake-bounce 2s ease-in-out infinite;
+      }
+      @keyframes cake-bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
+        50% { transform: translateX(-50%) translateY(-10px) rotate(5deg); }
+      }
+      .landing-title {
+        font-family: "Pattaya", cursive;
+        font-size: 3em;
+        color: #0d47a1;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 0 #fff, 4px 4px 8px rgba(13,71,161,0.2);
+        animation: title-shine 3s ease-in-out infinite;
+      }
+      @keyframes title-shine {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+      }
+      .landing-sub {
+        font-size: 1.2em;
+        color: #e65100;
+        margin-bottom: 30px;
+        animation: sub-pulse 2s ease-in-out infinite;
+      }
+      @keyframes sub-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      .landing-cta {
+        display: inline-block;
+        padding: 16px 48px;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: "Quicksand", sans-serif;
+        color: white;
+        background: linear-gradient(135deg, #ec407a, #f06292, #ff7043);
+        border-radius: 50px;
+        box-shadow: 0 8px 24px rgba(236,64,122,0.5);
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .landing-cta::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: btn-shine 2s infinite;
+      }
+      @keyframes btn-shine {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+      .landing-cta:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 32px rgba(236,64,122,0.65);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" id="bgDecor"></div>
+
+    <svg style="display: none">
+      <symbol id="bunga-rame" viewBox="0 0 100 100">
+        <path d="M20,50 C10,40 10,20 30,15 C40,25 35,40 20,50 Z" fill="#A5D6A7" />
+        <path d="M80,50 C90,60 90,80 70,85 C60,75 65,60 80,50 Z" fill="#A5D6A7" />
+        <circle cx="50" cy="50" r="12" fill="#FDD835" />
+        <ellipse cx="50" cy="25" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="50" cy="75" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="25" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="75" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="32" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="32" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+      </symbol>
+    </svg>
+
+    <svg class="flower-corner flower-top-left">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+    <svg class="flower-corner flower-bottom-right">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+
+    <audio id="music" loop>
+      <source src="audio/audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button class="music-fab" id="music-btn" onclick="toggleMusic()" title="Putar lagu">
+      <span class="fab-icon">♫</span>
+    </button>
+
+    <div class="page active" id="page-landing">
+      <div class="card landing-card">
+        <h1 class="landing-title">Happy Birthday Anin!!</h1>
+        <p class="landing-sub">Masukkan PIN dulu ya cantik</p>
+        <a href="halaman-pin.html" class="landing-cta">Masuk</a>
+      </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+      // ===== PETASAN CONTINUOUS =====
+      function meluncurkanRoket(xPercent, targetYHeight, callback) {
+        const r = document.createElement("div");
+        r.className = "rocket";
+        r.style.left = xPercent + "%";
+        const targetY = -1 * (window.innerHeight * targetYHeight);
+        r.style.setProperty("--target-y", targetY + "px");
+        document.body.appendChild(r);
+        setTimeout(() => {
+          r.remove();
+          if (callback) callback();
+        }, 750);
+      }
+
+      function petasanAtas(xPercent, yHeight) {
+        const colors = ["#ef5350","#ffca28","#42a5f5","#66bb6a","#ab47bc","#ff7043","#ec407a","#fff176"];
+        const xPos = (window.innerWidth * xPercent) / 100;
+        const yPos = window.innerHeight * yHeight;
+        for (let i = 0; i < 60; i++) {
+          const piece = document.createElement("i");
+          const angle = (Math.PI * 2 * i) / 60;
+          const distance = 80 + Math.random() * 200;
+          piece.className = "firework-piece";
+          piece.style.left = xPos + "px";
+          piece.style.top = yPos + "px";
+          piece.style.background = colors[i % colors.length];
+          piece.style.setProperty("--x", Math.cos(angle) * distance + "px");
+          piece.style.setProperty("--y", Math.sin(angle) * distance + "px");
+          document.body.appendChild(piece);
+          setTimeout(() => piece.remove(), 1400);
+        }
+      }
+
+      function fireOneRocket() {
+        const x = 10 + Math.random() * 80;
+        const h = 0.25 + Math.random() * 0.4;
+        meluncurkanRoket(x, h, () => petasanAtas(x, h));
+      }
+
+      function startContinuousFireworks() {
+        fireOneRocket();
+        setInterval(() => {
+          fireOneRocket();
+          if (Math.random() > 0.35) {
+            setTimeout(fireOneRocket, 150 + Math.random() * 250);
+          }
+        }, 1500 + Math.random() * 1000);
+      }
+
+      // ===== GLITTER RAIN =====
+      function spawnGlitter() {
+        const colors = ["#ffca28","#ec407a","#42a5f5","#66bb6a","#ff7043","#ab47bc","#fff176"];
+        for (let i = 0; i < 20; i++) {
+          const g = document.createElement("div");
+          g.className = "glitter";
+          g.style.left = Math.random() * 100 + "vw";
+          g.style.top = "-10px";
+          g.style.color = colors[Math.floor(Math.random() * colors.length)];
+          g.style.animationDuration = (Math.random() * 4 + 3) + "s";
+          g.style.animationDelay = (Math.random() * 2) + "s";
+          g.style.width = (Math.random() * 4 + 2) + "px";
+          g.style.height = g.style.width;
+          document.body.appendChild(g);
+          setTimeout(() => g.remove(), 8000);
+        }
+      }
+
+      // ===== BALLOONS =====
+      function spawnBalloon() {
+        const colors = ["#ef5350","#42a5f5","#66bb6a","#ffca28","#ab47bc","#ff7043","#ec407a","#fff176"];
+        const b = document.createElement("div");
+        b.className = "balloon-float";
+        b.style.left = Math.random() * 90 + 5 + "%";
+        b.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), ${colors[Math.floor(Math.random() * colors.length)]})`;
+        b.style.animationDuration = (Math.random() * 8 + 10) + "s";
+        b.style.animationDelay = Math.random() * 3 + "s";
+        b.style.width = (Math.random() * 20 + 40) + "px";
+        b.style.height = (Math.random() * 25 + 50) + "px";
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 15000);
+      }
+
+      // ===== STARS SPARKLE =====
+      function spawnStar() {
+        const s = document.createElement("div");
+        s.className = "star-sparkle";
+        s.innerText = Math.random() > 0.5 ? "✦" : "✧";
+        s.style.left = Math.random() * 100 + "%";
+        s.style.top = Math.random() * 100 + "%";
+        s.style.animationDelay = Math.random() * 2 + "s";
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 5000);
+      }
+
+      createBgDecor();
+      startContinuousFireworks();
+      setInterval(spawnGlitter, 2000);
+      setInterval(spawnBalloon, 3000);
+      setInterval(spawnStar, 1500);
+      
+      spawnGlitter();
+      spawnBalloon();
+      for (let i = 0; i < 8; i++) spawnStar();
+      
+      setTimeout(() => semprotConfetti(50), 300);
+    </script>
+  </body>
+</html>

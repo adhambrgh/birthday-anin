@@ -1,0 +1,10 @@
+﻿{
+  "name": "workflow-frontend-mcp",
+  "version": "1.0.0",
+  "description": "MCP server untuk generate frontend code — supercharged dengan workflow-frontend rules",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1"
+  }
+}

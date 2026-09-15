@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Anin!! - Foto Dia</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body { background: radial-gradient(circle at 20% 15%, #ffd1e4, transparent 28%), radial-gradient(circle at 80% 80%, #c7d9ff, transparent 30%), #f7e9ff; }
+      .page-selfie { max-width: 620px; }
+      .page-selfie .card {
+        --page-enter: pop-rotate;
+        overflow: hidden;
+        padding: 40px 24px 30px;
+        background: linear-gradient(145deg, #fff8fc, #f3efff);
+        border: 4px solid #fff;
+        box-shadow: 0 18px 42px rgba(171,71,188,.24);
+      }
+      .page-selfie .card::before { content: "SELFIE"; width: auto; height: auto; padding: 7px 14px; top: -18px; color: #fff; background: linear-gradient(135deg, #ec407a, #7e57c2); border-radius: 999px; font-size: .8rem; letter-spacing: .16em; }
+      .selfie-badge { display: inline-block; margin: 4px 0 8px; padding: 7px 16px; border-radius: 999px; color: #fff; background: linear-gradient(135deg, #ff7043, #ec407a); font-size: .8rem; font-weight: 700; letter-spacing: .15em; box-shadow: 0 5px 12px rgba(236,64,122,.28); animation: selfie-bounce 1.8s ease-in-out infinite; }
+      .selfie-lights { display: flex; justify-content: space-around; width: 90%; margin: 4px auto 18px; }
+      .selfie-lights i { width: 10px; height: 10px; border-radius: 50%; background: #ffca28; box-shadow: 0 0 12px 4px #ffca28; animation: light-pulse 1s ease-in-out infinite alternate; }
+      .selfie-lights i:nth-child(3n + 2) { background: #ec407a; box-shadow: 0 0 12px 4px #ec407a; animation-delay: .3s; }
+      .selfie-lights i:nth-child(3n) { background: #42a5f5; box-shadow: 0 0 12px 4px #42a5f5; animation-delay: .6s; }
+      .selfie-camera { display: none; width: 100%; max-width: 420px; margin: 16px auto; border: 8px solid #fff; outline: 4px solid #f8bbd0; border-radius: 24px; box-shadow: 0 12px 26px rgba(236,64,122,.25); transform: scaleX(-1); }
+      .selfie-camera.show { display: block; }
+      .selfie-status { min-height: 24px; color: #7e57c2; font-weight: 700; }
+      .selfie-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+      .selfie-actions button { margin: 0; background: linear-gradient(135deg, #ec407a, #7e57c2); }
+      .page-selfie .photo-frame { max-width: 420px; margin: 28px auto 20px; border: 7px solid #fff; outline: 4px solid #ffd54f; box-shadow: 0 14px 30px rgba(255,152,0,.2); }
+      .page-selfie .photo-caption { color: #7e57c2; }
+      @keyframes selfie-bounce { 50% { transform: translateY(-5px) rotate(-2deg); } }
+      @keyframes light-pulse { to { transform: scale(1.35); opacity: .65; } }
+    </style>
+  </head>
+  <body>
+    <div class="bg-decor" id="bgDecor"></div>
+
+    <svg style="display: none">
+      <symbol id="bunga-rame" viewBox="0 0 100 100">
+        <path d="M20,50 C10,40 10,20 30,15 C40,25 35,40 20,50 Z" fill="#A5D6A7" />
+        <path d="M80,50 C90,60 90,80 70,85 C60,75 65,60 80,50 Z" fill="#A5D6A7" />
+        <circle cx="50" cy="50" r="12" fill="#FDD835" />
+        <ellipse cx="50" cy="25" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="50" cy="75" rx="15" ry="20" fill="#BBDEFB" />
+        <ellipse cx="25" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="75" cy="50" rx="20" ry="15" fill="#BBDEFB" />
+        <ellipse cx="32" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="32" cy="68" rx="12" ry="12" fill="white" opacity="0.7" />
+        <ellipse cx="68" cy="32" rx="12" ry="12" fill="white" opacity="0.7" />
+      </symbol>
+    </svg>
+
+    <svg class="flower-corner flower-top-left">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+    <svg class="flower-corner flower-bottom-right">
+      <use xlink:href="#bunga-rame" />
+    </svg>
+
+    <audio id="music" loop>
+      <source src="audio/audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button class="music-fab" id="music-btn" onclick="toggleMusic()" title="Putar lagu">
+      <span class="fab-icon">♫</span>
+    </button>
+
+    <!-- ============ HALAMAN 5 : FOTO DIA ============ -->
+    <div class="page page-selfie active" id="page-selfie">
+      <div class="card">
+        <div class="selfie-lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="selfie-badge">HAPPY 17th · SELFIE TIME</div>
+        <h3>Spesial buat Kamu</h3>
+        <p>Foto ini khusus buat Anin di hari istimewanya</p>
+        <p class="selfie-status" id="selfie-status" aria-live="polite">Ambil selfie dulu buat kejutan berikutnya.</p>
+        <video class="selfie-camera" id="selfie-video" autoplay playsinline muted></video>
+        <canvas id="selfie-canvas" hidden></canvas>
+        <div class="selfie-actions">
+          <button class="nav-btn" id="camera-btn" type="button">Buka Kamera</button>
+          <button class="nav-btn" id="capture-btn" type="button" hidden>Ambil Foto</button>
+        </div>
+
+        <div class="photo-frame">
+          <img
+            id="selfie-img"
+            src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80"
+            alt="Teruntuk kamu, yang punya hari ini"
+            onerror="this.onerror=null;this.src='foto/image5.jpg'"
+          />
+          <div class="photo-caption">Teruntuk kamu, yang punya hari ini</div>
+        </div>
+
+        <p>
+          Yang penting... foto yang bikin kamu senyum!
+        </p>
+
+        <div class="nav-row">
+          <button class="nav-btn" onclick="window.location.href='halaman-doa.html'">
+            Kembali
+          </button>
+          <button class="nav-btn" onclick="window.location.href='halaman-spesial.html'">
+            Lanjut
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+      createBgDecor();
+      semprotConfetti(30);
+      const video = document.getElementById('selfie-video');
+      const canvas = document.getElementById('selfie-canvas');
+      const statusEl = document.getElementById('selfie-status');
+      const cameraBtn = document.getElementById('camera-btn');
+      const captureBtn = document.getElementById('capture-btn');
+      let stream = null;
+
+      async function startCamera() {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'user', width: { ideal: 720 }, height: { ideal: 720 } },
+            audio: false
+          });
+          video.srcObject = stream;
+          video.classList.add('show');
+          cameraBtn.hidden = true;
+          captureBtn.hidden = false;
+          statusEl.textContent = 'Kamera siap. Tekan "Ambil Foto" saat senyum.';
+        } catch (err) {
+          console.error('Kamera gagal:', err);
+          statusEl.textContent = 'Kamera tidak bisa dibuka. Foto default akan dipakai.';
+        }
+      }
+
+      function stopCamera() {
+        if (stream) {
+          stream.getTracks().forEach(t => t.stop());
+          stream = null;
+        }
+        video.srcObject = null;
+        video.classList.remove('show');
+      }
+
+      function takeSelfie() {
+        if (!stream) return;
+        const w = video.videoWidth;
+        const h = video.videoHeight;
+        const maxW = 960;
+        const scale = Math.min(1, maxW / w);
+        canvas.width = Math.round(w * scale);
+        canvas.height = Math.round(h * scale);
+        const ctx = canvas.getContext('2d');
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        sessionStorage.setItem('birthday-selfie', dataUrl);
+        document.getElementById('selfie-img').src = dataUrl;
+        statusEl.textContent = 'Selfie tersimpan. Lanjut untuk kejutan.';
+        captureBtn.hidden = true;
+        cameraBtn.hidden = false;
+        cameraBtn.textContent = 'Ulangi Selfie';
+        stopCamera();
+      }
+
+      cameraBtn.addEventListener('click', () => {
+        if (stream) {
+          takeSelfie();
+        } else {
+          startCamera();
+        }
+      });
+      captureBtn.addEventListener('click', takeSelfie);
+    </script>
+  </body>
+</html>
