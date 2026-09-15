@@ -678,28 +678,23 @@
 
           pinReset();
           
-          // Play music before redirect (user gesture context)
+          // Play music langsung (user gesture context - browser allow)
           const music = document.getElementById("music");
-          if (music) {
+          const mBtn = document.getElementById("music-btn");
+          if (music && music.paused) {
             music.volume = 0.5;
             music.play().then(() => {
-              const btn = document.getElementById("music-btn");
-              if (btn) btn.classList.add("playing");
+              if (mBtn) mBtn.classList.add("playing");
               localStorage.setItem("anin_music", "on");
+              localStorage.setItem("anin_music_time", "0");
             }).catch(() => {});
+          } else if (music) {
+            localStorage.setItem("anin_music", "on");
           }
-          
-          // Navigasi ke ucapan via PJAX (audio tetap hidup)
+
+          // Setelah delay 800ms → fetch ucapan via PJAX, audio tetap hidup
           setTimeout(() => {
-            try {
-              if (typeof pjaxNavigate === "function") {
-                pjaxNavigate("halaman-ucapan.html");
-              } else {
-                window.location.href = "halaman-ucapan.html";
-              }
-            } catch (e) {
-              window.location.href = "halaman-ucapan.html";
-            }
+            pjaxNavigate("halaman-ucapan.html");
           }, 800);
         } else {
           msg.style.color = "#c62828";
