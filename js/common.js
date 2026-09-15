@@ -38,12 +38,8 @@ function toggleMusic() {
   const btn = document.getElementById("music-btn");
   if (!music || !btn) return;
   if (music.paused) {
-    music.play()
-      .then(() => {
-        btn.classList.add("playing");
-        localStorage.setItem("anin_music", "on");
-      })
-      .catch(() => {});
+    localStorage.setItem("anin_music", "on");
+    resumeAndPlay(music);
   } else {
     music.pause();
     btn.classList.remove("playing");
@@ -51,19 +47,47 @@ function toggleMusic() {
   }
 }
 
+function resumeAndPlay(music) {
+  const savedTime = parseFloat(localStorage.getItem("anin_music_time") || "0");
+  if (savedTime > 0 && music.currentTime < 1) {
+    music.currentTime = savedTime;
+  }
+  const btn = document.getElementById("music-btn");
+  const p = music.play();
+  if (p && p.then) {
+    p.then(() => {
+      if (btn) btn.classList.add("playing");
+    }).catch(() => {});
+  }
+}
+
 function autoPlayMusic() {
   const music = document.getElementById("music");
-  const btn = document.getElementById("music-btn");
   if (!music) return;
   music.volume = 0.5;
-  // Coba putar otomatis, kalau browser blokir fallback di first click
-  music.play()
-    .then(() => {
-      if (btn) btn.classList.add("playing");
-      localStorage.setItem("anin_music", "on");
-    })
-    .catch(() => {});
+  resumeAndPlay(music);
 }
+
+// Saat pindah halaman / tutup → simpan posisi lagu
+function saveMusicTime() {
+  const music = document.getElementById("music");
+  if (music && !music.paused) {
+    localStorage.setItem("anin_music_time", String(music.currentTime));
+  }
+}
+window.addEventListener("pagehide", saveMusicTime);
+window.addEventListener("beforeunload", saveMusicTime);
+window.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") saveMusicTime();
+});
+
+// Simpan progres tiap detik biar ga kehilangan posisi
+setInterval(() => {
+  const music = document.getElementById("music");
+  if (music && !music.paused) {
+    localStorage.setItem("anin_music_time", String(music.currentTime));
+  }
+}, 1000);
 
 // Setelah DOM ready, cek status musik sebelumnya dari localStorage
 document.addEventListener("DOMContentLoaded", () => {
