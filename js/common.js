@@ -100,6 +100,17 @@ function pjaxNavigate(url) {
         document.body.appendChild(sc);
       });
 
+      // Auto-play musik jika sebelumnya playing
+      const music = document.getElementById("music");
+      const btn = document.getElementById("music-btn");
+      const saved = localStorage.getItem("anin_music");
+      if (saved !== "off" && music && music.paused) {
+        music.volume = 0.5;
+        music.play().then(() => {
+          if (btn) btn.classList.add("playing");
+        }).catch(() => {});
+      }
+
       window.scrollTo(0, 0);
       history.pushState({ pjax: true }, "", target);
       document.body.classList.remove(pageState.navClassName);
