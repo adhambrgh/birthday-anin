@@ -98,6 +98,7 @@
       @media (min-width: 1024px) { .photo-grid { columns: 4; column-gap: 22px; } }
       .photo-grid .photo-frame {
         position: relative;
+        overflow: hidden;
         break-inside: avoid;
         width: 100%;
         margin: 0 0 20px;
@@ -105,7 +106,13 @@
         animation: none;
         transition: transform 0.28s ease, box-shadow 0.28s ease;
       }
-      .photo-grid .photo-frame img { aspect-ratio: 4 / 5; }
+      .photo-grid .photo-frame img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: auto;
+        object-fit: auto;
+        display: block;
+      }
       .photo-grid .photo-frame { outline: 3px solid #f8bbd0; }
       .photo-grid .photo-frame:nth-child(2n) { outline-color: #ffd54f; }
       .photo-grid .photo-frame:nth-child(3n) { outline-color: #90caf9; }
@@ -132,12 +139,7 @@
       .photo-frame:nth-child(19) { --tilt: -2deg; }
       .photo-frame:nth-child(20) { --tilt: 3deg; }
 
-      /* Ukuran foto beda-beda biar scrapbook makin hidup */
-      .photo-grid .photo-frame:nth-child(2n) img { aspect-ratio: 1 / 1; }
-      .photo-grid .photo-frame:nth-child(3n) img { aspect-ratio: 3 / 4; }
-      .photo-grid .photo-frame:nth-child(5n) img { aspect-ratio: 16 / 10; }
-
-      .photo-grid .photo-frame:hover {
+.photo-grid .photo-frame:hover {
         transform: rotate(0deg) scale(1.06);
         z-index: 12;
         box-shadow: 0 14px 28px rgba(0,0,0,0.28);
@@ -150,6 +152,10 @@
         padding: 4px 10px;
         white-space: normal;
         overflow-wrap: break-word;
+      }
+      @media (max-width: 360px) {
+        .photo-grid { column-gap: 8px; }
+        .photo-grid .photo-caption { font-size: 0.82em; padding: 2px 6px; }
       }
     </style>
   </head>
