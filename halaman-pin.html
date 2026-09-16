@@ -88,12 +88,10 @@
       }
       @media (max-width: 480px) {
         .gift-box {
+          width: 100%;
           max-width: none;
-          width: 100vw;
-          left: 50%;
-          margin: 0;
-          padding: 0 12px;
-          box-sizing: border-box;
+          margin: 0 auto;
+          padding: 0;
           overflow: hidden;
         }
         .gift-lid {
@@ -105,23 +103,19 @@
           padding: 0 12px;
         }
         #pin-title {
-          margin-left: -12px; margin-right: -12px;
           font-size: 1.6em;
           white-space: nowrap;
         }
-        #pin-sub { margin-left: -12px; margin-right: -12px; }
+        #pin-sub { margin: 0; }
         .invitation-card {
           font-size: 1.9em;
           letter-spacing: 9px;
-          margin-left: -12px; margin-right: -12px;
         }
-        .pin-pad.balloons { margin-left: -12px; margin-right: -12px; }
+        .pin-pad.balloons { max-width: 280px; }
         .gift-open-btn {
-          margin-left: -12px; margin-right: -12px;
-          width: auto;
-          max-width: 92%;
+          width: 100%;
+          max-width: 300px;
         }
-        .clue-tag { margin-left: -12px; margin-right: -12px; }
       }
       .gift-lid {
         position: relative;

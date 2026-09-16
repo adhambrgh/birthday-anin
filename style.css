@@ -3,7 +3,7 @@
 
 /* ===== Reset dasar ===== */
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; min-height: 100vh; -webkit-text-size-adjust: 100%; }
+html, body { margin: 0; padding: 0; min-height: 100vh; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
 body {
   background-color: #e3f2fd;
   font-family: "Quicksand", sans-serif;
