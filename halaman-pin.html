@@ -94,6 +94,7 @@
           margin: 0;
           padding: 0 12px;
           box-sizing: border-box;
+          overflow: hidden;
         }
         .gift-lid {
           border-radius: 16px 16px 8px 8px;
@@ -103,11 +104,23 @@
           border-radius: 0 0 16px 16px;
           padding: 0 12px;
         }
-        #pin-title { margin-left: -12px; margin-right: -12px; }
+        #pin-title {
+          margin-left: -12px; margin-right: -12px;
+          font-size: 1.6em;
+          white-space: nowrap;
+        }
         #pin-sub { margin-left: -12px; margin-right: -12px; }
-        .invitation-card { margin-left: -12px; margin-right: -12px; }
+        .invitation-card {
+          font-size: 1.9em;
+          letter-spacing: 9px;
+          margin-left: -12px; margin-right: -12px;
+        }
         .pin-pad.balloons { margin-left: -12px; margin-right: -12px; }
-        .gift-open-btn { margin-left: -12px; margin-right: -12px; }
+        .gift-open-btn {
+          margin-left: -12px; margin-right: -12px;
+          width: auto;
+          max-width: 92%;
+        }
         .clue-tag { margin-left: -12px; margin-right: -12px; }
       }
       .gift-lid {
@@ -678,11 +691,12 @@
 
           pinReset();
           
-          // Play music langsung (user gesture context - browser allow)
+          // Start musik SAAT transisi keluar pin → ucapan (user gesture, biar ga keblock autoplay)
           const music = document.getElementById("music");
           const mBtn = document.getElementById("music-btn");
           if (music && music.paused) {
             music.volume = 0.5;
+            music.loop = true;
             music.play().then(() => {
               if (mBtn) mBtn.classList.add("playing");
               localStorage.setItem("anin_music", "on");

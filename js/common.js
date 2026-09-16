@@ -100,10 +100,14 @@ function pjaxNavigate(url) {
         document.body.appendChild(sc);
       });
 
-      // Auto-play musik jika sebelumnya playing
+      // Auto-play musik kalau halaman target BUKAN landing/pin (yang boleh: ucapan dst)
       const saved = localStorage.getItem("anin_music");
-      if (saved !== "off" && music && music.paused) {
+      if (target === "halaman-pin.html" || target === "index.html") {
+        if (music) music.pause();
+        if (musicBtn) musicBtn.classList.remove("playing");
+      } else if (saved !== "off" && music && music.paused) {
         music.volume = 0.5;
+        music.loop = true;
         music.play().then(() => {
           if (musicBtn) musicBtn.classList.add("playing");
         }).catch(() => {});
@@ -170,11 +174,18 @@ function sparkleDi(x, y) {
 }
 
 /* ===== MUSIC — persist across pages via localStorage ===== */
+// Halaman yang GA boleh main musik: landing & pin. Sisanya (ucapan dst) → main + loop.
+function isNoMusicPage() {
+  const p = window.location.pathname.split("/").pop();
+  return p === "index.html" || p === "halaman-pin.html";
+}
+
 function toggleMusic() {
   const music = document.getElementById("music");
   const btn = document.getElementById("music-btn");
   if (!music || !btn) return;
   if (music.paused) {
+    music.loop = true;
     localStorage.setItem("anin_music", "on");
     resumeAndPlay(music);
   } else {
@@ -189,6 +200,7 @@ function resumeAndPlay(music) {
   if (savedTime > 0 && music.currentTime < 1) {
     music.currentTime = savedTime;
   }
+  music.loop = true;
   const btn = document.getElementById("music-btn");
   const p = music.play();
   if (p && p.then) {
@@ -199,9 +211,11 @@ function resumeAndPlay(music) {
 }
 
 function autoPlayMusic() {
+  if (isNoMusicPage()) return;
   const music = document.getElementById("music");
   if (!music) return;
   music.volume = 0.5;
+  music.loop = true;
   resumeAndPlay(music);
 }
 
@@ -226,17 +240,19 @@ setInterval(() => {
   }
 }, 1000);
 
-// Setelah DOM ready, cek status musik sebelumnya dari localStorage
+// Setelah DOM ready — auto-play musik di halaman ucapan dst (bukan landing/pin)
 document.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("anin_music");
-  if (saved !== "off") {
+  if (!isNoMusicPage() && saved !== "off") {
     autoPlayMusic();
   }
-  // Fallback: klik pertama di halaman → coba play
+  // Fallback: klik pertama di halaman → coba play (kecuali landing/pin)
   document.addEventListener("click", () => {
+    if (isNoMusicPage()) return;
     const music = document.getElementById("music");
     const btn = document.getElementById("music-btn");
     if (music && music.paused && localStorage.getItem("anin_music") !== "off") {
+      music.loop = true;
       music.play()
         .then(() => { if (btn) btn.classList.add("playing"); })
         .catch(() => {});

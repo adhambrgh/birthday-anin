@@ -3,7 +3,7 @@
 
 /* ===== Reset dasar ===== */
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; min-height: 100vh; }
+html, body { margin: 0; padding: 0; min-height: 100vh; -webkit-text-size-adjust: 100%; }
 body {
   background-color: #e3f2fd;
   font-family: "Quicksand", sans-serif;
@@ -277,6 +277,28 @@ img { width: 100%; height: auto; border-radius: 5px; border: 12px solid white; b
 #game-timer { font-size: 1.1em; color: #ef5350; font-weight: bold; }
 
 /* ===== Responsif ===== */
+@media (max-width: 480px) {
+  body { padding: 14px 10px; padding-top: 56px; padding-bottom: 56px; }
+  h1 { font-size: 1.7em; }
+  h3 { font-size: 1.2em; }
+  p { font-size: 0.95em; line-height: 1.65; }
+  .card { padding: 22px 16px; border-radius: 22px; }
+  .flower-corner { width: 140px; height: 140px; }
+  .music-fab { width: 48px; height: 48px; font-size: 20px; top: 12px; right: 12px; }
+  .nav-row { gap: 10px; }
+  .nav-btn { padding: 12px 22px; font-size: 15px; }
+  button { padding: 10px 20px; font-size: 16px; }
+  img { border-width: 8px; border-bottom-width: 32px; }
+  .photo-frame { margin: 20px 0; }
+}
+@media (max-width: 350px) {
+  body { padding: 10px 6px; padding-top: 48px; padding-bottom: 48px; }
+  .flower-corner { width: 100px; height: 100px; }
+  h1 { font-size: 1.45em; }
+  h3 { font-size: 1.05em; }
+  .card { padding: 18px 12px; border-radius: 18px; }
+  p { font-size: 0.88em; }
+}
 @media (min-width: 620px) {
   body { padding: 90px 30px; }
   .page { max-width: 760px; }
@@ -297,8 +319,4 @@ img { width: 100%; height: auto; border-radius: 5px; border: 12px solid white; b
   .pin-pad { max-width: 300px; }
   .pin-btn { padding: 20px; font-size: 26px; }
 }
-@media (max-width: 350px) {
-  .flower-corner { width: 150px; height: 150px; }
-  h1 { font-size: 2em; }
-  .card { padding: 25px 18px; }
-}
+

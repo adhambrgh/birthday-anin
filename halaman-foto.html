@@ -87,39 +87,69 @@
       .light-bulb:nth-child(3n + 2) { background: #ffca28; box-shadow: 0 0 14px 4px #ffca28; animation-delay: .4s; }
       .light-bulb:nth-child(3n) { background: #42a5f5; box-shadow: 0 0 14px 4px #42a5f5; animation-delay: .8s; }
       @keyframes bulb-glow { to { transform: scale(1.3); opacity: .65; } }
-      .photo-frame {
-        border: 5px solid #fff;
-        outline: 3px solid #f8bbd0;
-        box-shadow: 0 10px 22px rgba(233,30,99,.2);
-        animation: photo-float 4s ease-in-out infinite alternate;
+      /* ===== SCRAPBOOK: RANDOM & LUCU ===== */
+      .photo-grid {
+        display: block;
+        columns: 2;
+        column-gap: 14px;
+        margin-top: 6px;
       }
-      .photo-frame:nth-child(3n) { outline-color: #ffd54f; }
-      .photo-frame:nth-child(even) { outline-color: #90caf9; }
-      .photo-frame:nth-child(1) { animation-delay: 0s; }
-      .photo-frame:nth-child(2) { animation-delay: 0.6s; }
-      .photo-frame:nth-child(3) { animation-delay: 1.2s; }
-      .photo-frame:nth-child(4) { animation-delay: 1.8s; }
-      .photo-frame:nth-child(5) { animation-delay: 2.4s; }
-      .photo-frame:nth-child(6) { animation-delay: 3.0s; }
+      @media (min-width: 620px) { .photo-grid { columns: 3; column-gap: 18px; } }
+      @media (min-width: 1024px) { .photo-grid { columns: 4; column-gap: 22px; } }
+      .photo-grid .photo-frame {
+        position: relative;
+        break-inside: avoid;
+        width: 100%;
+        margin: 0 0 20px;
+        transform: rotate(var(--tilt, 0deg));
+        animation: none;
+        transition: transform 0.28s ease, box-shadow 0.28s ease;
+      }
+      .photo-grid .photo-frame img { aspect-ratio: 4 / 5; }
+      .photo-grid .photo-frame { outline: 3px solid #f8bbd0; }
+      .photo-grid .photo-frame:nth-child(2n) { outline-color: #ffd54f; }
+      .photo-grid .photo-frame:nth-child(3n) { outline-color: #90caf9; }
+      .photo-grid .photo-frame:nth-child(5n) { outline-color: #b39ddb; }
 
-      @keyframes photo-float {
-        0% { transform: translateY(0) rotate(-3deg); }
-        50% { transform: translateY(-8px) rotate(-1deg); }
-        100% { transform: translateY(0) rotate(-3deg); }
+      .photo-frame:nth-child(1)  { --tilt: -4deg; }
+      .photo-frame:nth-child(2)  { --tilt: 3deg; }
+      .photo-frame:nth-child(3)  { --tilt: -2deg; margin-top: 10px; }
+      .photo-frame:nth-child(4)  { --tilt: 4deg; }
+      .photo-frame:nth-child(5)  { --tilt: -5deg; }
+      .photo-frame:nth-child(6)  { --tilt: 2deg; margin-top: -6px; }
+      .photo-frame:nth-child(7)  { --tilt: -3deg; }
+      .photo-frame:nth-child(8)  { --tilt: 5deg; margin-top: 12px; }
+      .photo-frame:nth-child(9)  { --tilt: -1deg; }
+      .photo-frame:nth-child(10) { --tilt: 4deg; }
+      .photo-frame:nth-child(11) { --tilt: -4deg; margin-top: 8px; }
+      .photo-frame:nth-child(12) { --tilt: 2deg; }
+      .photo-frame:nth-child(13) { --tilt: -2deg; }
+      .photo-frame:nth-child(14) { --tilt: 6deg; margin-top: -8px; }
+      .photo-frame:nth-child(15) { --tilt: -3deg; }
+      .photo-frame:nth-child(16) { --tilt: 3deg; }
+      .photo-frame:nth-child(17) { --tilt: -6deg; margin-top: 8px; }
+      .photo-frame:nth-child(18) { --tilt: 5deg; }
+      .photo-frame:nth-child(19) { --tilt: -2deg; }
+      .photo-frame:nth-child(20) { --tilt: 3deg; }
+
+      /* Ukuran foto beda-beda biar scrapbook makin hidup */
+      .photo-grid .photo-frame:nth-child(2n) img { aspect-ratio: 1 / 1; }
+      .photo-grid .photo-frame:nth-child(3n) img { aspect-ratio: 3 / 4; }
+      .photo-grid .photo-frame:nth-child(5n) img { aspect-ratio: 16 / 10; }
+
+      .photo-grid .photo-frame:hover {
+        transform: rotate(0deg) scale(1.06);
+        z-index: 12;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.28);
       }
-      .photo-frame:nth-child(even) {
-        animation-name: photo-float-even;
-      }
-      @keyframes photo-float-even {
-        0% { transform: translateY(0) rotate(3deg); }
-        50% { transform: translateY(-8px) rotate(1deg); }
-        100% { transform: translateY(0) rotate(3deg); }
-      }
-      .photo-frame:hover {
-        animation-play-state: paused;
-        transform: scale(1.05) rotate(0deg) !important;
-        box-shadow: 0 12px 24px rgba(0,0,0,0.25);
-        z-index: 10;
+
+      /* Caption kebaca & ngga overflow */
+      .photo-grid .photo-caption {
+        font-size: 0.92em;
+        line-height: 1.25;
+        padding: 4px 10px;
+        white-space: normal;
+        overflow-wrap: break-word;
       }
     </style>
   </head>
@@ -180,57 +210,103 @@
 
         <div class="photo-grid">
           <div class="photo-frame">
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80"
-              alt="Kenangan yang bikin meleleh"
-              onerror="this.onerror=null;this.src='foto/image.png'"
-            />
-            <div class="photo-caption">Kenangan yang bikin meleleh</div>
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Senyum yang gak pernah bosen dilihat" onerror="this.onerror=null;this.src='foto/image.png'" />
+            <div class="photo-caption">Senyum yang gak pernah bosen dilihat</div>
           </div>
 
           <div class="photo-frame">
-            <img
-              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80"
-              alt="Tambah umur, makin sayang"
-              onerror="this.onerror=null;this.src='foto/image2.jpg'"
-            />
-            <div class="photo-caption">Tambah umur, makin sayang</div>
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="Dua orang, satu cerita" onerror="this.onerror=null;this.src='foto/image2.jpg'" />
+            <div class="photo-caption">Dua orang, satu cerita</div>
           </div>
 
           <div class="photo-frame">
-            <img
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80"
-              alt="Momen yang gak tergantikan"
-              onerror="this.onerror=null;this.src='foto/image3.jpg'"
-            />
-            <div class="photo-caption">Momen yang gak tergantikan</div>
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Kebahagiaan yang sederhana" onerror="this.onerror=null;this.src='foto/image3.jpg'" />
+            <div class="photo-caption">Kebahagiaan yang sederhana</div>
           </div>
 
           <div class="photo-frame">
-            <img
-              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80"
-              alt="Jalan bareng sampai tua itu impian"
-              onerror="this.onerror=null;this.src='foto/image4.jpg'"
-            />
-            <div class="photo-caption">Jalan bareng sampai tua itu impian</div>
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80" alt="Pelan-pelan, tapi beriringan" onerror="this.onerror=null;this.src='foto/image4.jpg'" />
+            <div class="photo-caption">Pelan-pelan, tapi beriringan</div>
           </div>
 
           <div class="photo-frame">
-            <img
-              src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80"
-              alt="Selamat ulang tahun, tetap cinta"
-              onerror="this.onerror=null;this.src='foto/image5.jpg'"
-            />
-            <div class="photo-caption">Selamat ulang tahun, tetap cinta</div>
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80" alt="Nggak perlu banyak kata" onerror="this.onerror=null;this.src='foto/image5.jpg'" />
+            <div class="photo-caption">Nggak perlu banyak kata</div>
           </div>
 
           <div class="photo-frame">
-            <img
-              src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80"
-              alt="Kerennya kamu, layak dirayain"
-              onerror="this.onerror=null;this.src='foto/image.png'"
-            />
-            <div class="photo-caption">Kerennya kamu, layak dirayain</div>
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt="Cukup sama kamu, udah jadi cerita" onerror="this.onerror=null;this.src='foto/image.png'" />
+            <div class="photo-caption">Cukup sama kamu, udah jadi cerita</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Satu momen, seribu kenangan" onerror="this.onerror=null;this.src='foto/image.png'" />
+            <div class="photo-caption">Satu momen, seribu kenangan</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="Enggak sengaja ketemu, gak pernah mau bosen" onerror="this.onerror=null;this.src='foto/image2.jpg'" />
+            <div class="photo-caption">Enggak sengaja ketemu,<br />gak pernah mau bosen</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Kamu alasan aku bahagia" onerror="this.onerror=null;this.src='foto/image3.jpg'" />
+            <div class="photo-caption">Kamu alasan aku bahagia</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80" alt="Hadirmu hadiah terindah" onerror="this.onerror=null;this.src='foto/image4.jpg'" />
+            <div class="photo-caption">Hadirmu hadiah terindah</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80" alt="Tiap hari jadi istimewa" onerror="this.onerror=null;this.src='foto/image5.jpg'" />
+            <div class="photo-caption">Tiap hari jadi istimewa</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt="Cerita kita masih panjang" onerror="this.onerror=null;this.src='foto/image.png'" />
+            <div class="photo-caption">Cerita kita masih panjang</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Bersama mu, cukup" onerror="this.onerror=null;this.src='foto/image.png'" />
+            <div class="photo-caption">Bersama mu, cukup</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="Kenangan yang tak tergantikan" onerror="this.onerror=null;this.src='foto/image2.jpg'" />
+            <div class="photo-caption">Kenangan yang tak tergantikan</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Kamu worth it" onerror="this.onerror=null;this.src='foto/image3.jpg'" />
+            <div class="photo-caption">Kamu worth it</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80" alt="Momen yang tersimpan" onerror="this.onerror=null;this.src='foto/image4.jpg'" />
+            <div class="photo-caption">Momen yang tersimpan</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80" alt="Ketemu kamu, terbaik" onerror="this.onerror=null;this.src='foto/image5.jpg'" />
+            <div class="photo-caption">Ketemu kamu, terbaik</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt="Senyummu penenang hati" onerror="this.onerror=null;this.src='foto/image.png'" />
+            <div class="photo-caption">Senyummu penenang hati</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Tiap detik berharga" onerror="this.onerror=null;this.src='foto/image.png'" />
+            <div class="photo-caption">Tiap detik berharga</div>
+          </div>
+
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="Kamu memang spesial" onerror="this.onerror=null;this.src='foto/image2.jpg'" />
+            <div class="photo-caption">Kamu memang spesial</div>
           </div>
         </div>
 
